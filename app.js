@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const { campgroundSchema } = require('./schemas');
+const { campgroundSchema, reviewSchema } = require('./schemas');
 const ejsMate = require('ejs-mate');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
@@ -42,6 +42,15 @@ const validateCampground = (req, res, next) => {
     next();
 }
 
+const validateReview = (req, res, next) => {
+    const { error } = reviewSchema.validate(req.body);
+    if (error) {
+        const message = error.details.map(el => el.message).join(',');
+        throw new ExpressError(message, 400);
+        // the statements after throw won't be executed!
+    }
+    next();
+}
 
 app.get('/', (req, res) => {
     res.send('Home');
@@ -92,15 +101,14 @@ app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
 }));
 
 // Review POST
-app.post('/campgrounds/:id/reviews', catchAsync(async (req, res) => {
-    res.send("REVIEW POST WORKING!!! ");
+app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async (req, res) => {
     const campgroundId = req.params.id;
     const campground = await Campground.findById(campgroundId);
     const review = new Review(req.body.review);
     campground.reviews.push(review);
     await review.save();
     await campground.save();
-    res.redirect(`/campground/${campgroundId}`);
+    res.redirect(`/campgrounds/${campgroundId}`);
 }))
 
 app.all('*', (req, res, next) => {
