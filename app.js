@@ -30,7 +30,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
-
 // JOI Middleware
 const validateCampground = (req, res, next) => {
     const { error } = campgroundSchema.validate(req.body);
@@ -75,9 +74,20 @@ app.post('/campgrounds', validateCampground, catchAsync(async (req, res, next) =
     res.redirect(`/campgrounds/${campground._id}`);
 }));
 
+app.delete('/campgrounds/:id/reviews/:reviewId', catchAsync(async (req, res) => {
+    const { id: campgroundId, reviewId } = req.params;
+    /*
+        '$pull' operator removes from an existing array all instances of a value/values
+        that match specified condition. Here we remove the specific review.
+    */
+    await Campground.findByIdAndUpdate(campgroundId, { $pull: { reviews: reviewId } });
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/campgrounds/${campgroundId}`);
+}));
+
 app.get('/campgrounds/:id', catchAsync(async (req, res) => {
     const id = req.params.id;
-    const campground = await Campground.findById(id);
+    const campground = await Campground.findById(id).populate('reviews');
     res.render('campgrounds/show', { campground });
 }));
 
