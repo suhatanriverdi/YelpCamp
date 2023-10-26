@@ -31,11 +31,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
+function checker(req, res, next) {
+    console.log("CHECKING");
+    console.log("req.params: ", req.params);
+    next();
+}
+
 // ROUTES
 app.use('/campgrounds', campgroundsRoute);
-app.use('/campgrounds/:id/reviews', reviewsRoute);
+app.use('/campgrounds/:id/reviews', checker, reviewsRoute);
 
 app.get('/', (req, res) => {
+    // req.params -> to access pattern variable inside
+    // the Route Path /campgrounds/":id" id here in express
+
+    // req.query -> to access the Query string parameters we pass to URL
+    // req.body -> to access POST info
     res.redirect('/campgrounds');
 });
 

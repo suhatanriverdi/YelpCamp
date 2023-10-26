@@ -1,5 +1,17 @@
 const express = require('express');
-const router = express.Router();
+/*  '{ mergeParams: true }' this preserves the for example "req.params"
+That comes from the Parent router, here we need to use the 
+"const campgroundId = req.params.id;"
+in the POST middleware, so we need to access the "req.params"
+if we didn't use this parameter "{ mergeParams: true }" here,
+we were to get TypeError because "req.params" is null.
+So whenever we come from the parent, if we want to 
+Preserve the "req.params" values from the parent router.
+
+If the parent and the child have conflicting param names, 
+the child’s value take precedence.
+*/
+const router = express.Router({ mergeParams: true });
 
 // Models
 const Campground = require('../models/campground');
@@ -23,6 +35,9 @@ const validateReview = (req, res, next) => {
 
 router.post('/', validateReview, catchAsync(async (req, res) => {
     const campgroundId = req.params.id;
+
+    console.log("campgroundId: ", req.params);
+
     const campground = await Campground.findById(campgroundId);
     const review = new Review(req.body.review);
     campground.reviews.push(review);
