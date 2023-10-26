@@ -13,6 +13,10 @@
 <body class="d-flex flex-column vh-100">
     <%- include('../partials/navbar') %>
     <main class="container mt-5 mb-5">
+        <!-- we have access to "locals.*anythinghere*" directly
+            So, ne need to write locals.
+        -->
+        <%- include('../partials/flash') %>
         <%- body %>
     </main>
     <%- include('../partials/footer') %>

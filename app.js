@@ -59,6 +59,13 @@ function checker(req, res, next) {
     next();
 }
 
+// Flash middleware, to give access to "locals.success" in our templates/views
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
+
 // ROUTES
 app.use('/campgrounds', campgroundsRoute);
 app.use('/campgrounds/:id/reviews', checker, reviewsRoute);
