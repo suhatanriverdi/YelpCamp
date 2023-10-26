@@ -1,16 +1,14 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const { campgroundSchema, reviewSchema } = require('./schemas');
 const ejsMate = require('ejs-mate');
-const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
-const Campground = require('./models/campground');
-const Review = require('./models/review');
 
 // Campground Routes
 const campgroundsRoute = require('./routes/campgrounds');
+// Review Routes
+const reviewsRoute = require('./routes/review');
 
 async function main() {
     await mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp');
@@ -33,10 +31,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
+// ROUTES
 app.use('/campgrounds', campgroundsRoute);
+app.use('/campgrounds/:id/reviews', reviewsRoute);
 
 app.get('/', (req, res) => {
-    res.send('Home');
+    res.redirect('/campgrounds');
 });
 
 app.all('*', (req, res, next) => {
@@ -50,6 +50,7 @@ app.use((err, req, res, next) => {
     }
     res.status(statusCode).render('error', { err });
 })
+
 
 /*
 redirect redirects the user's browser to another address. 
