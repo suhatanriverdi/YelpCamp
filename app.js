@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const flash = require('connect-flash');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
@@ -26,10 +28,30 @@ app.listen(port, () => {
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+// Enable "public" folder to serve static files like css, pngs etc
+// app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Config objects & setting up session
+const sessionConfig = {
+    secret: 'thisshouldbeabettersecret!',
+    resave: false,
+    saveUninitialized: true,
+    // We can have fancy options for our cookie like expiration date
+    cookie: {
+        // To Aviod Cross Side Scripting CSS, extra security
+        httpOnly: true,
+        // Date.now() is in miliseconds
+        // One week is "1000 * 60 * 60 * 24 * 7" milliseconds
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+app.use(session(sessionConfig));
+app.use(flash()); // Flash messages
 
 function checker(req, res, next) {
     console.log("CHECKING");

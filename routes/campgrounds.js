@@ -1,9 +1,15 @@
 const express = require('express');
+
+/*
+We don't need { mergeParams: true } here,
+because all the "/:id"s already here in this file or route
+They are not passing/coming form the parent!
+*/
 const router = express.Router();
+
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 const Campground = require('../models/campground');
-const Review = require('../models/review');
 const { campgroundSchema } = require('../schemas');
 
 // JOI Middleware
