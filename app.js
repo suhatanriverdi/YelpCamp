@@ -53,12 +53,6 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash()); // Flash messages
 
-function checker(req, res, next) {
-    console.log("CHECKING");
-    console.log("req.params: ", req.params);
-    next();
-}
-
 // Flash middleware, to give access to "locals.success" in our templates/views
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
@@ -68,7 +62,7 @@ app.use((req, res, next) => {
 
 // ROUTES
 app.use('/campgrounds', campgroundsRoute);
-app.use('/campgrounds/:id/reviews', checker, reviewsRoute);
+app.use('/campgrounds/:id/reviews', reviewsRoute);
 
 app.get('/', (req, res) => {
     // req.params -> to access pattern variable inside
