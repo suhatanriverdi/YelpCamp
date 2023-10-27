@@ -7,6 +7,11 @@ const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 
+// These are different from passportLocalMongoose package
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
+
 // Campground Routes
 const campgroundsRoute = require('./routes/campgrounds');
 // Review Routes
@@ -50,14 +55,35 @@ const sessionConfig = {
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
+
+// This should be before "passport.session()"
 app.use(session(sessionConfig));
 app.use(flash()); // Flash messages
+
+// This is required to initialized the passport package
+app.use(passport.initialize());
+// We need this for a persistent login session
+// This should come after "app.use(session(sessionConfig));"
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+// How to store and un-store the user in the session
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Flash middleware, to give access to "locals.success" in our templates/views
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
+})
+
+app.get('/fakeUser', async (req, res) => {
+    const user = new User({ email: 'melo@gmail.com', username: 'melo' });
+    // Takes instance of a user model and a passport
+    // And this will hash and store it for us
+    const newUser = await User.register(user, 'eagle');
+    res.send(newUser);
 })
 
 // ROUTES
