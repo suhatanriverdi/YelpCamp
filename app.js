@@ -13,9 +13,11 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 
 // Campground Routes
-const campgroundsRoute = require('./routes/campgrounds');
+const campgroundsRoutes = require('./routes/campgrounds');
 // Review Routes
-const reviewsRoute = require('./routes/review');
+const reviewsRoutes = require('./routes/review');
+// Register Routes
+const reviewsRoutes = require('./routes/review');
 
 async function main() {
     await mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp');
@@ -87,8 +89,8 @@ app.get('/fakeUser', async (req, res) => {
 })
 
 // ROUTES
-app.use('/campgrounds', campgroundsRoute);
-app.use('/campgrounds/:id/reviews', reviewsRoute);
+app.use('/campgrounds', campgroundsRoutes);
+app.use('/campgrounds/:id/reviews', reviewsRoutes);
 
 app.get('/', (req, res) => {
     // req.params -> to access pattern variable inside
