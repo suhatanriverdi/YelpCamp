@@ -47,15 +47,15 @@ to the URL of http://example.com/blog/admin/post/new.
 If you redirect from http://example.com/blog/admin to post/new (no trailing slash),
  it redirects to http://example.com/blog/post/new.
 */
-app.get('/melo', (req, res) => {
-    res.location()
-    res.redirect('seno');
-});
+// app.get('/melo', (req, res) => {
+//     res.location()
+//     res.redirect('seno');
+// });
 
-app.get('/seno', (req, res) => {
-    res.send('İKİNCİ SAYFA');
-    // res.redirect('/melo');
-});
+// app.get('/seno', (req, res) => {
+//     res.send('İKİNCİ SAYFA');
+//     // res.redirect('/melo');
+// });
 //--------------------------------
 
 app.engine('ejs', ejsMate);
@@ -139,7 +139,6 @@ app.use((err, req, res, next) => {
     }
     res.status(statusCode).render('error', { err });
 })
-
 
 /*
 redirect redirects the user's browser to another address. 
