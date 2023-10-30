@@ -32,6 +32,32 @@ app.listen(port, () => {
     console.log('Express App is listening on port: ', port, '...');
 });
 
+//------------------------------
+// How these redirects work?
+// redirect('seno');
+// redirect('/seno');
+/*
+Redirects
+
+can be relative to the current URL. 
+For example, from http://example.com/blog/admin/ (note the trailing slash), 
+the "res.redirect('post/new')" redirects
+to the URL of http://example.com/blog/admin/post/new.
+
+If you redirect from http://example.com/blog/admin to post/new (no trailing slash),
+ it redirects to http://example.com/blog/post/new.
+*/
+app.get('/melo', (req, res) => {
+    res.location()
+    res.redirect('seno');
+});
+
+app.get('/seno', (req, res) => {
+    res.send('İKİNCİ SAYFA');
+    // res.redirect('/melo');
+});
+//--------------------------------
+
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
