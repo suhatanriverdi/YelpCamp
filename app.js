@@ -17,7 +17,7 @@ const campgroundsRoutes = require('./routes/campgrounds');
 // Review Routes
 const reviewsRoutes = require('./routes/review');
 // Register Routes
-const reviewsRoutes = require('./routes/review');
+const userRoutes = require('./routes/users');
 
 async function main() {
     await mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp');
@@ -89,6 +89,7 @@ app.get('/fakeUser', async (req, res) => {
 })
 
 // ROUTES
+app.use('/', userRoutes);
 app.use('/campgrounds', campgroundsRoutes);
 app.use('/campgrounds/:id/reviews', reviewsRoutes);
 
