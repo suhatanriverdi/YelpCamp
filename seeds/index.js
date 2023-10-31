@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Campground = require('../models/campground');
+const Review = require('../models/review');
 
 /*
 "import" needs curly braces for named exports 
@@ -29,6 +30,7 @@ const sample = (array) => {
 
 const seedDB = async () => {
     await Campground.deleteMany({});
+    await Review.deleteMany({});
     for (let i = 0; i < 50; i++) {
         const price = Math.floor(Math.random() * 20) + 10;
         const randomIndex = Math.floor(Math.random() * 1000);
@@ -45,7 +47,7 @@ const seedDB = async () => {
         await camp.save();
     }
 
-    console.log("campgrounds db has been removed and re-populated!");
+    console.log("campgrounds and review dbs has been removed and re-populated!");
 }
 
 seedDB().then(() => {
