@@ -1,3 +1,16 @@
+/*
+    If we are in DEVELOPMENT mode, require the package
+    dotenv and this will take the variables we defined
+    in ".env" file and add them into "process.env" in the node app.
+*/
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config()
+}
+
+// Now we have acces these variables inside .env file
+// console.log(process.env.SECRET);
+// console.log(process.env.API_KEY);
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
