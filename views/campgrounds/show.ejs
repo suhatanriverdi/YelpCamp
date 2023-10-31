@@ -1,64 +1,101 @@
 <% layout('layouts/boilerplate') %>
-<div class="row">
-    <div class="col-6">
-        <div class="card mb-3">
-            <img src="<%= campground.image %>" class="card-img-top" alt="">
-            <div class="card-body">
-                <h5 class="card-title">
-                    <%= campground.title %>
-                </h5>
-                <p class="card-text">
-                    <%= campground.description %>
-                </p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <%= campground.location %>
-                </li>
-                <li class="list-group-item">$<%= campground.price %>/night</li>
-            </ul>
-            <div class="card-body">
-                <a class="card-link btn btn-info" href="/campgrounds/<%= campground._id %>/edit"
-                    class="card-link">Edit</a>
-                <form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-                    <button class="card-link btn btn-danger" type="submit">Delete</button>
-                </form>
-            </div>
-            <div class="card-footer">
-                2 days ago
-            </div>
-        </div>
-    </div>
-    <div class="col-6">
-        <h2>Leave a Review</h2>
-        <form action="/campgrounds/<%= campground._id %>/reviews" class="mb-3 validated-form" method="POST" novalidate>
-            <div class="mb-3">
-                <label for="rating" class="form-label">Rating</label>
-                <input type="range" class="form-range" min="1" max="5" name="review[rating]" id="rating">
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="body">Review</label>
-                <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <button class="btn btn-success">Add Review</button>
-        </form>
-        <% for (let review of campground.reviews) { %>
+    <div class="row">
+        <div class="col-6">
             <div class="card mb-3">
+                <img src="<%= campground.image %>" class="card-img-top" alt="">
                 <div class="card-body">
                     <h5 class="card-title">
-                        Rating: <%= review.rating %>
+                        <%= campground.title %>
                     </h5>
                     <p class="card-text">
-                        Review: <%= review.body %>
+                        <%= campground.description %>
                     </p>
-                    <form action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
-                        <button class="btn btn-sm btn-danger">Delete</button>
-                    </form>
                 </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <%= campground.location %>
+                    </li>
+                    <li class="list-group-item">$<%= campground.price %>/night</li>
+                    <li class="list-group-item">Submitted by <%= campground.author.username %>
+                    </li>
+                </ul>
+                <!-- If there is a currentUser and this campground is associated with that user, show the buttons.
+
+                    ObjectIds will not be considered equal by the "===" operator 
+                    because they are two different instances of the ObjectId type — 
+                    i.e they are two different objects in memory, their values 
+                    which is the addresses they hold are different. So even if their
+                    types are same, their values are not same, what we see is the same ids
+                    but what is stored inside is memory address values. That's why we use 
+                    equals method which checks their values.
+
+                    EXPLANATION:
+                    The .equals() method is used there because the objects being compared 
+                    are mongoose ObjectId instances, rather than simple JavaScript primitive values, 
+                    like strings or numbers. The ObjectId type is a custom object type used in MongoDB 
+                    and mongoose to represent unique identifiers for documents in the database.
+                    When you use the triple equals ===, it checks for both value and type equality 
+                    between the two variables being compared. In the case of mongoose ObjectId (object) instances, 
+                    even if two ObjectId instances have the same value, 
+                    they will not be considered equal by the === operator 
+                    because they are two different instances of the ObjectId type — 
+                    i.e they are two different objects in memory, which is what the === would check 
+                    when you use it to compare objects in JavaScript. This is where the .equals() method comes in.
+                    The .equals() method is a part of the ObjectId prototype in mongoose. 
+                    It is designed specifically to compare ObjectId (object) instances for their value equality,
+                     ignoring the fact that they may be different instances of the ObjectId type in memory. 
+                     When you use .equals() on an ObjectId instance 
+                     and pass another ObjectId instance as an argument, 
+                     it compares the underlying value of both instances and returns true 
+                     if they are equal or false otherwise.
+                    In summary, the reason why triple equals === doesn't work for verifying the user, 
+                    in this case, is because you are comparing mongoose ObjectId object instances, which require a custom equality comparison provided by the .equals() method.
+                -->
+                <% if (currentUser && campground.author.equals(currentUser._id)) { %>
+                    <div class="card-body">
+                        <a class="card-link btn btn-info" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+                        <form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                            <button class="card-link btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                    <% } %>
+                    <div class="card-footer">
+                        2 days ago
+                    </div>
             </div>
-        <% } %>
+        </div>
+        <div class="col-6">
+            <h2>Leave a Review</h2>
+            <form action="/campgrounds/<%= campground._id %>/reviews" class="mb-3 validated-form" method="POST"
+                novalidate>
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input type="range" class="form-range" min="1" max="5" name="review[rating]" id="rating">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="body">Review</label>
+                    <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <button class="btn btn-success">Add Review</button>
+            </form>
+            <% for (let review of campground.reviews) { %>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Rating: <%= review.rating %>
+                        </h5>
+                        <p class="card-text">
+                            Review: <%= review.body %>
+                        </p>
+                        <form action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
+                            method="POST">
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                <% } %>
+        </div>
     </div>
-</div>

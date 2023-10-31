@@ -39,6 +39,8 @@ router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res, nex
     // }
     // This is intermediate schema not a mongo one
     const campground = new Campground(req.body.campground);
+    // Associate the campground with the user who created it." req.user._id" is added thanks to password
+    campground.author = req.user._id;
     await campground.save();
     // Creates flash message in our session
     req.flash('success', 'Successfully made a new campground!');
@@ -47,13 +49,13 @@ router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res, nex
 
 router.get('/:id', catchAsync(async (req, res) => {
     const id = req.params.id;
-    const campground = await Campground.findById(id).populate('reviews');
+    const campground = await Campground.findById(id).populate('reviews').populate('author');
     if (!campground) {
         req.flash('error', 'Cannot find that campground!');
         return res.redirect('/campgrounds');
         /* We should use return here because code continues running
             Even if we don't return, we cannot do anything with "res." anymore
-            instead, we can do other stuff.
+            instead, we can do other stuff. We may have an error if we did not.
         */
     }
     res.render('campgrounds/show', { campground });
