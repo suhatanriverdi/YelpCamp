@@ -8,6 +8,10 @@ const CampgroundSchema = new Schema({
     price: Number,
     description: String,
     location: String,
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,
@@ -15,12 +19,12 @@ const CampgroundSchema = new Schema({
         }
     ]
 });
- 
+
 // This is a QUERY Middleware, there is also document middleware
 // This middleware will run once we remove a campground, after we remove
 CampgroundSchema.post('findOneAndDelete', async function (deletedCampground) {
     // We have access the removed thing here by passing in, "deletedCampground"
-    console.log("Removed Campground: ", deletedCampground);
+    // console.log("Removed Campground: ", deletedCampground);
     if (deletedCampground) {
         await Review.deleteMany({
             _id: {

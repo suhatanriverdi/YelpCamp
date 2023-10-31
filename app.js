@@ -101,6 +101,8 @@ passport.deserializeUser(User.deserializeUser());
 
 // Flash middleware, to give access to "locals.success" in our templates/views
 app.use((req, res, next) => {
+    // Views will have access to user info everywhere
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();

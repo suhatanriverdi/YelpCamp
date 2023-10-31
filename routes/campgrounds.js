@@ -59,7 +59,7 @@ router.get('/:id', catchAsync(async (req, res) => {
     res.render('campgrounds/show', { campground });
 }));
 
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
     const id = req.params.id;
     const campground = await Campground.findById(id);
     if (!campground) {
@@ -77,7 +77,7 @@ router.put('/:id', validateCampground, catchAsync(async (req, res) => {
     res.redirect(`/campgrounds/${campground._id}`);
 }));
 
-router.delete('/:id', catchAsync(async (req, res) => {
+router.delete('/:id', isLoggedIn, catchAsync(async (req, res) => {
     const id = req.params.id;
     await Campground.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted campground!');
