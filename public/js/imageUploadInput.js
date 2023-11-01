@@ -1,9 +1,16 @@
 const imageUploaderInput = document.querySelector('#imageUploaderInput');
 const container = document.querySelector('#imageUploadContainer');
 
-function convertFileSize(fileSizeInBytes) {
-    let fileSizeInMBs = (fileSizeInBytes / 1048576);
-    return fileSizeInMBs.toFixed(2);
+Number.prototype.formatBytes = function () {
+    bytes = this;
+    let units = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    let i;
+
+    for (i = 0; bytes >= 1024 & i < 4; i++) {
+        bytes /= 1024;
+    }
+
+    return bytes.toFixed(2) + ' ' + units[i];
 }
 
 function appendHTMLElement(thumbnailContent, fileName, fileSize) {
@@ -15,7 +22,7 @@ function appendHTMLElement(thumbnailContent, fileName, fileSize) {
             </div>
             <div class="col p-2">
                 <h5 class="card-title">${fileName}</h5>
-                <p class="card-text"><small class="text-body-secondary">${fileSize} mb</small></p>
+                <p class="card-text"><small class="text-body-secondary"> ${fileSize.formatBytes()}</small></p>
             </div>
         </div>
     </div>`;
@@ -44,6 +51,6 @@ imageUploaderInput.addEventListener('change', () => {
     for (let file of imageUploaderInput.files) {
         // console.log(file, file.name, file.size);
         // Create the card section
-        createHTMLElement(file, file.name, convertFileSize(file.size));
+        createHTMLElement(file, file.name, file.size);
     }
 })
