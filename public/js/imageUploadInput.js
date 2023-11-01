@@ -1,5 +1,6 @@
 const imageUploaderInput = document.querySelector('#imageUploaderInput');
 const container = document.querySelector('#imageUploadContainer');
+const clearFilesBtn = document.querySelector('#clearFilesBtn');
 
 Number.prototype.formatBytes = function () {
     bytes = this;
@@ -11,6 +12,10 @@ Number.prototype.formatBytes = function () {
     }
 
     return bytes.toFixed(2) + ' ' + units[i];
+}
+
+function resetFileUploadInput() {
+    imageUploaderInput.value = null;
 }
 
 function appendHTMLElement(thumbnailContent, fileName, fileSize) {
@@ -46,6 +51,11 @@ function createHTMLElement(file, fileName, fileSize) {
         appendHTMLElement(thumbnailContent, fileName, fileSize);
     }
 }
+
+clearFilesBtn.addEventListener('click', () => {
+    resetFileUploadInput();
+    container.replaceChildren()
+})
 
 imageUploaderInput.addEventListener('change', () => {
     for (let file of imageUploaderInput.files) {
