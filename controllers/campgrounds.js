@@ -15,9 +15,15 @@ module.exports.createCampground = async (req, res, next) => {
     // }
     // This is intermediate schema not a mongo one
     const campground = new Campground(req.body.campground);
+    // Map them into an object
+    campground.images = req.files.map(f => ({ 
+        url: f.path, 
+        filename: f.filename
+    }));
     // Associate the campground with the user who created it." req.user._id" is added thanks to password
     campground.author = req.user._id;
     await campground.save();
+    console.log(campground);
     // Creates flash message in our session
     req.flash('success', 'Successfully made a new campground!');
     res.redirect(`/campgrounds/${campground._id}`);
@@ -41,7 +47,7 @@ module.exports.showCampground = async (req, res) => {
             }
         })
         .populate('author');
-        // console.log("campground populated: ", campground.reviews);
+    // console.log("campground populated: ", campground.reviews);
     if (!campground) {
         req.flash('error', 'Cannot find that campground!');
         return res.redirect('/campgrounds');
