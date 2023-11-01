@@ -8,3 +8,17 @@
     width: 75px;
     height: 75px;
 }
+
+@media (max-width: 1200px) {
+    #uploadedImage {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 1000px) {
+    #uploadedImage {
+        width: 120px;
+        height: 120px;
+    }
+}
