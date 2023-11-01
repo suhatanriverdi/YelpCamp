@@ -16,8 +16,8 @@ module.exports.createCampground = async (req, res, next) => {
     // This is intermediate schema not a mongo one
     const campground = new Campground(req.body.campground);
     // Map them into an object
-    campground.images = req.files.map(f => ({ 
-        url: f.path, 
+    campground.images = req.files.map(f => ({
+        url: f.path,
         filename: f.filename
     }));
     // Associate the campground with the user who created it." req.user._id" is added thanks to password
@@ -70,12 +70,18 @@ module.exports.renderEdit = async (req, res) => {
     res.render('campgrounds/edit', { campground });
 }
 
-module.exports.updatedCampground = async (req, res) => {
+module.exports.updateCampground = async (req, res) => {
     const campgroundId = req.params.id;
     const updatedCampgroundContent = req.body.campground;
-    const camp = await Campground.findByIdAndUpdate(campgroundId, { ...updatedCampgroundContent });
+    const updatedCampground = await Campground.findByIdAndUpdate(campgroundId, { ...updatedCampgroundContent });
+    const imgs = req.files.map(f => ({
+        url: f.path,
+        filename: f.filename
+    }))
+    updatedCampground.images.push( ...imgs );
+    await updatedCampground.save();
     req.flash('success', 'Successfully updated campground!');
-    res.redirect(`/campgrounds/${camp._id}`);
+    res.redirect(`/campgrounds/${updatedCampground._id}`);
 }
 
 module.exports.deleteCampground = async (req, res) => {
