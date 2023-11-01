@@ -23,7 +23,6 @@ module.exports.createCampground = async (req, res, next) => {
     // Associate the campground with the user who created it." req.user._id" is added thanks to password
     campground.author = req.user._id;
     await campground.save();
-    console.log(campground);
     // Creates flash message in our session
     req.flash('success', 'Successfully made a new campground!');
     res.redirect(`/campgrounds/${campground._id}`);

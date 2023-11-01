@@ -1,8 +1,10 @@
 <% layout('layouts/boilerplate') %>
+    <link rel="stylesheet" href="/css/uploadedImage.css">
     <div class="row">
         <h1 class="text-center">Edit Campground</h1>
         <div class="col-6 offset-3">
-            <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+            <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" novalidate
+                class="validated-form" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label" for="title">Title:</label>
                     <input class="form-control" type="text" id="title" name="campground[title]"
@@ -15,9 +17,9 @@
                         value="<%= campground.location %>" required>
                     <div class="valid-feedback">Looks good!</div>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3" id="container">
                     <label class="form-label" for="image">Upload Images:</label>
-                    <input class="form-control" type="file" id="image" name="image" multiple>
+                    <input class="form-control" type="file" id="imageUploaderInput" name="image" multiple>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="price">Campground Price:</label>
@@ -45,3 +47,4 @@
             </footer>
         </div>
     </div>
+    <script src="/js/imageUploadInput.js"></script>
