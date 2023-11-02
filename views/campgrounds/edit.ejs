@@ -3,8 +3,7 @@
     <div class="row">
         <h1 class="text-center">Edit Campground</h1>
         <div class="col-6 offset-3">
-            <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" novalidate
-                class="validated-form" enctype="multipart/form-data">
+            <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label" for="title">Title:</label>
                     <input class="form-control" type="text" id="title" name="campground[title]"
@@ -29,17 +28,17 @@
                 <!-- Uploaded Images Container -->
                 <div id="imageUploadContainer">
                     <!-- <div class="card mb-3" style="overflow: hidden;">
-                                        <div class="row g-0">
-                                            <div class="col-auto" id="uploadedImage">
-                                                <img src="https://res.cloudinary.com/dplejuooh/image/upload/v1698803100/YelpCamp/dkwyfm8hdepqlkisqeoq.jpg"
-                                                    alt="Image">
-                                            </div>
-                                            <div class="col p-2">
-                                                <h5 class="card-title">Eagle Flying.jpeg</h5>
-                                                <p class="card-text"><small class="text-body-secondary">3.5 KB</small></p>
-                                            </div>
-                                        </div>
-                                    </div> -->
+                        <div class="row g-0">
+                            <div class="col-auto" id="uploadedImage">
+                                <img src="https://res.cloudinary.com/dplejuooh/image/upload/v1698803100/YelpCamp/dkwyfm8hdepqlkisqeoq.jpg"
+                                    alt="Image">
+                            </div>
+                            <div class="col p-2">
+                                <h5 class="card-title">Eagle Flying.jpeg</h5>
+                                <p class="card-text"><small class="text-body-secondary">3.5 KB</small></p>
+                            </div>
+                        </div>
+                    </div> -->
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="price">Campground Price:</label>
@@ -55,6 +54,17 @@
                     <textarea class="form-control" type="text" id="description" name="campground[description]"
                         required><%= campground.description %></textarea>
                     <div class="valid-feedback">Looks good!</div>
+                </div>
+                <div class="mb-3">
+                    <% campground.images.forEach(function(img, i) { %>
+                        <div class="row-auto m-5">
+                            <img class="img-thumbnail" src="<%= img.thumbnail %>" alt="Image">
+                            <div class="form-check-inline">
+                                <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
+                            </div>
+                            <label for="image-<%= i %>">Delete?</label>
+                        </div>
+                    <% }) %>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-warning" type="submit">Update Campground</button>

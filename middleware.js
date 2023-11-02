@@ -46,7 +46,7 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     next();
 }
 
-// JOI Middleware
+// JOI Middleware for server side validation
 module.exports.validateCampground = (req, res, next) => {
     const { error } = campgroundSchema.validate(req.body);
     if (error) {
