@@ -1,7 +1,11 @@
 <% layout('layouts/boilerplate') %>
     <link rel="stylesheet" href="/css/stars.css">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
     <div class="row">
         <div class="col-6">
+
+            <!-- MAPBOX -->
+            <div id='map' style='width: 400px; height: 300px;'></div>
 
             <div id="campgroundCarousel" class="carousel slide">
                 <div class="carousel-inner">
@@ -145,3 +149,10 @@
                         <% } %>
         </div>
     </div>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+    <script>
+        // Transfers this variable to showPageMap.js file
+        const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+        const campground = '<%- JSON.stringify(campground) %>';
+    </script>
+    <script src='/js/showPageMap.js'></script>

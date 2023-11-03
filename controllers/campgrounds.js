@@ -1,17 +1,9 @@
 const Campground = require('../models/campground');
 const { cloudinary } = require('../cloudinary');
 
-// Import only the bits you need, MAPTILES
-// Import the whole library
-// import * as maptilerClient from '@maptiler/client';
-const maptilerClient = require('@maptiler/client');
-
-// Add API key
-maptilerClient.config.apiKey = process.env.MAP_TILER_API_KEY;
-
-// in an async function, or as a 'thenable':
-// const result = await maptilerClient.geocoding.forward('paris');
-// console.log('RESULT: ', result);
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({});
@@ -26,8 +18,14 @@ module.exports.createCampground = async (req, res, next) => {
     // if (!req.body.campground) {
     //     throw new ExpressError('Invalid Campground Data', 400);
     // }
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.campground.location,
+        limit: 1
+    }).send();
+    const geometry = geoData.body.features[0].geometry;
     // This is intermediate schema not a mongo one
     const campground = new Campground(req.body.campground);
+    campground.geometry = geometry;
     // Map them into an object
     campground.images = req.files.map(f => ({
         url: f.path,
