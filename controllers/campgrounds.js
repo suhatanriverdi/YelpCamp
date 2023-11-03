@@ -1,6 +1,18 @@
 const Campground = require('../models/campground');
 const { cloudinary } = require('../cloudinary');
 
+// Import only the bits you need, MAPTILES
+// Import the whole library
+// import * as maptilerClient from '@maptiler/client';
+const maptilerClient = require('@maptiler/client');
+
+// Add API key
+maptilerClient.config.apiKey = process.env.MAP_TILER_API_KEY;
+
+// in an async function, or as a 'thenable':
+// const result = await maptilerClient.geocoding.forward('paris');
+// console.log('RESULT: ', result);
+
 module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({});
     res.render('campgrounds/index', { campgrounds });
@@ -70,6 +82,7 @@ module.exports.renderEdit = async (req, res) => {
     res.render('campgrounds/edit', { campground });
 }
 
+// UPDATE/EDIT Campground
 module.exports.updateCampground = async (req, res) => {
     const campgroundId = req.params.id;
     // console.log(req.body);
