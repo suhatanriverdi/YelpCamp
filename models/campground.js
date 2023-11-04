@@ -13,6 +13,16 @@ ImageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/w_200')
 });
 
+// To be able to get virtual methods after calling JSON.stringify(), we enable:
+const opts = {
+    toObject: {
+        virtuals: true
+    },
+    toJSON: {
+        virtuals: true
+    }
+};
+
 const CampgroundSchema = new Schema({
     title: String,
     images: [ImageSchema],
@@ -42,6 +52,13 @@ const CampgroundSchema = new Schema({
             ref: 'Review'
         }
     ]
+}, opts);
+
+
+// Adding properties for MAPBOX popup
+CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
+    // Don't use "" here, use ''
+    return `<strong><a href='/campgrounds/${this._id}'>${this.title}</a></strong><p>${this.description.substring(0, 30)}...</p>`;
 });
 
 // This is a QUERY Middleware, there is also document middleware

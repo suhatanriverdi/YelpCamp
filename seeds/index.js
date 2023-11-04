@@ -31,14 +31,14 @@ const sample = (array) => {
 const seedDB = async () => {
     await Campground.deleteMany({});
     await Review.deleteMany({});
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 300; i++) {
         const price = Math.floor(Math.random() * 20) + 10;
         const randomIndex = Math.floor(Math.random() * 1000);
-        const random1000 = cities[randomIndex];
+        const randomCity = cities[randomIndex];
         const camp = new Campground({
             // All belong to "melo": "eagle"
             author: '653bc6d212a993d4c98130e7',
-            location: `${random1000.city}, ${random1000.state}`,
+            location: `${randomCity.city}, ${randomCity.state}`,
             title: `${sample(places)} ${sample(descriptors)}`,
             images: [
                 {
@@ -54,7 +54,7 @@ const seedDB = async () => {
             price,
             geometry: {
                 type: "Point",
-                coordinates: [-113.1331, 47.0202]
+                coordinates: [randomCity.longitude, randomCity.latitude]
             }
         });
         await camp.save();
