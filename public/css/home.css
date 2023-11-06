@@ -27,6 +27,22 @@ a,
     /* background-color: rgba(255, 255, 255, 0.485); */
 }
 
+.nav-link:active,
+.nav-link:visited,
+.navbar-brand:visited,
+.navbar-brand:active {
+    color: rgb(253, 225, 193);
+    border-bottom: 0.25rem solid rgb(253, 225, 193);
+    /* background-color: rgba(255, 255, 255, 0.485); */
+}
+
+.nav-link::after,
+.navbar-brand::after {
+    color: rgb(253, 225, 193);
+    border-bottom: 0.25rem solid rgb(253, 225, 193);
+    /* background-color: rgba(255, 255, 255, 0.485); */
+}
+
 .cover-container {
     max-width: 60vw;
     background-color: transparent;
