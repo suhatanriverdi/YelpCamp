@@ -1,11 +1,18 @@
 <% layout('layouts/boilerplate') %>
-<div id="map" class="mb-3" style="width: 100%; height: 500px;"></div>
-    <h1>All Campgrounds</h1>
-    <div>
-        <a href="/campgrounds/new">Add a New Campground</a>
+    <link rel="stylesheet" href="/css/backToTop.css">
+    <div class="d-flex justify-content-center align-items-center mb-3">
+        <h2 class="text-center">Campgrounds Map</h2>
+    </div>
+    <div id="map" class="mb-5 shadow-sm rounded" style="width: 100%; height: 500px;"></div>
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h2 class="text-center">All Campgrounds</h2>
+        <a class="btn btn-success btn-lg shadow-sm" href="/campgrounds/new">New Campground&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+          </svg></a>
     </div>
     <% for (let campground of campgrounds) { %>
-        <div class="card mb-3">
+        <div class="card mb-5 shadow-sm">
             <div class="col-md-4 mb-3">
                 <% if (campground.images.length) { %>
                     <img class="img-fluid" alt="A campground image" src="<%= campground.images[0].url %>">
@@ -28,16 +35,25 @@
                         </small>
                     </p>
                     <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary">View <%= campground.title %>
-                            </a>
+                    </a>
                 </div>
             </div>
         </div>
         <% } %>
 
-        <script>
-            // Transfers this variable to clusterMap.js file
-            const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
-            // To not get error related mongoose virtual toObject, use -> ``
-            const campgrounds = `<%- JSON.stringify(campgrounds) %>`;
-        </script>
-        <script src="/js/clusterMap.js"></script>
+            <button id="back-to-top" class="btn btn-success shadow" title="Back to Top">Back to Top&nbsp;
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-arrow-up" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                </svg>
+            </button>
+
+            <script>
+                // Transfers this variable to clusterMap.js file
+                const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+                // To not get error related mongoose virtual toObject, use -> ``
+                const campgrounds = `<%- JSON.stringify(campgrounds) %>`;
+            </script>
+            <script src="/js/clusterMap.js"></script>
+            <script src="/js/backToTop.js"></script>
