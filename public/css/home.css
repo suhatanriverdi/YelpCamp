@@ -1,0 +1,26 @@
+body {
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+     url('../assets/background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.nav-link, p, h1, h2, a, .navbar-brand {
+    color: rgb(255, 249, 242);
+}
+
+.nav-link, .navbar-brand {
+    border-bottom: 0.25rem solid transparent;
+}
+
+.nav-link:hover, .navbar-brand:hover {
+    color: rgb(255, 249, 242);
+    border-bottom: 0.25rem solid rgb(255, 249, 242);
+    background-color: rgba(255, 255, 255, 0.485);
+}
+
+.cover-container {
+    max-width: 60vw;
+    background-color: transparent;
+}

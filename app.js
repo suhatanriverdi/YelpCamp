@@ -140,7 +140,7 @@ app.get('/', (req, res) => {
 
     // req.query -> to access the Query string parameters we pass to URL
     // req.body -> to access POST info
-    res.redirect('/campgrounds');
+    res.render('home');
 });
 
 app.all('*', (req, res, next) => {

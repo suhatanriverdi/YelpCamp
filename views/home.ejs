@@ -1,11 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YelpCamp Home</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
-<body>
-    <h1>YelpCamp Home</h1>
+
+<body class="d-flex text-center">
+    <div class="cover-container d-flex w-100 mx-auto flex-column">
+        <nav class="navbar sticky-top navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">YelpCamp</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="d-flex justify-content-end float-md-right collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="/campgrounds">Campgrounds</a>
+                        <% if (!currentUser) { %>
+                            <a class="nav-link" href="/login">Login</a>
+                            <a class="nav-link" href="/register">Register</a>
+                            <% } else { %>
+                                <a class="nav-link" href="/logout">Logout</a>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <main class="mt-auto">
+            <h1>YelpCamp</h1>
+            <p class="lead">Welcome to the YelpCamp!</p>
+            <p>Explore our campgrounds around the worl!</p>
+            <p>Share your camping experience with photos and comment on others!</p>
+            <a href="/campgrounds" class="btn btn-lg btn-warning">View Campgrounds</a>
+        </main>
+
+        <footer class="mt-auto text-center">
+            <p>&copy; 2023 YelpCamp</p>
+            <small class="text-white">Created by Süha Tanrıverdi</small><br>
+            <small class="text-white">Genesis Corp&trade; All Rights Reserved.</small>
+        </footer>
+    </div>
+
+    <!-- Bootstrap 5 -->
+    <script src="/js/bootstrap.min.js"></script>
 </body>
+
 </html>
