@@ -17,7 +17,7 @@ body {
 .nav-link:hover, .navbar-brand:hover {
     color: rgb(255, 249, 242);
     border-bottom: 0.25rem solid rgb(255, 249, 242);
-    background-color: rgba(255, 255, 255, 0.485);
+    /* background-color: rgba(255, 255, 255, 0.485); */
 }
 
 .cover-container {
