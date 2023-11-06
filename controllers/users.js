@@ -13,7 +13,7 @@ module.exports.registerUser = async (req, res) => {
             if (err) {
                 return next(err);
             }
-            req.flash('success', 'Welcome to Yelp Camp!');
+            req.flash('success', `Welcome to Yelp Camp! ${username}`);
             res.redirect('/campgrounds');
         });
     } catch (err) {
@@ -33,7 +33,8 @@ module.exports.renderLogin = (req, res) => {
 }
 
 module.exports.login = (req, res) => {
-    req.flash('success', 'Welcome back!');
+    const { username } = req.body;
+    req.flash('success', `Welcome back! ${username}`);
     // update this line to use res.locals.returnTo now
     const redirectUrl = res.locals.returnTo || '/campgrounds';
     // Delete operator removes a property from an object
@@ -46,7 +47,7 @@ module.exports.logout = (req, res, next) => {
         if (err) {
             return next(err);
         }
-        req.flash('success', 'Goodbye!');
+        req.flash('info', `Goodbye! ${req.params.username}`);
         res.redirect('/campgrounds');
     });
 }

@@ -24,6 +24,6 @@ router.route('/login')
         // Now we can use res.locals.returnTo to redirect the user after login
         users.login)
 
-router.get('/logout', users.logout);
+router.get('/logout/:username', users.logout);
 
 module.exports = router;
