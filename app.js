@@ -86,6 +86,7 @@ app.use(mongoSanitize());
 
 // Config objects & setting up session
 const sessionConfig = {
+    name: 'session',
     secret: 'thisshouldbeabettersecret!',
     resave: false,
     saveUninitialized: true,
@@ -93,6 +94,7 @@ const sessionConfig = {
     cookie: {
         // To Aviod Cross Side Scripting CSS, extra security
         httpOnly: true,
+        // secure: true, // cookies can only be configured only over https
         // Date.now() is in miliseconds
         // One week is "1000 * 60 * 60 * 24 * 7" milliseconds
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
