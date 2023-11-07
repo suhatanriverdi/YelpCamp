@@ -3,9 +3,15 @@
     dotenv and this will take the variables we defined
     in ".env" file and add them into "process.env" in the node app.
 */
+// process.env.NODE_ENV = 'production';
+// process.env.NODE_ENV = 'development';
 if (process.env.NODE_ENV !== "production") {
-    require('dotenv').config()
+    console.log("DEVELOPMENT MODE ENABLED", process.env.NODE_ENV);
+    require('dotenv').config();
 }
+// else {
+//     console.log("PRODUCTION MODE ENABLED", process.env.NODE_ENV);
+// }
 
 // Now we have acces these variables inside .env file
 // console.log(process.env.SECRET);
@@ -20,6 +26,7 @@ const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
 
 // These are different from passportLocalMongoose package
 const passport = require('passport');
@@ -105,6 +112,7 @@ const sessionConfig = {
 // This should be before "passport.session()"
 app.use(session(sessionConfig));
 app.use(flash()); // Flash messages
+app.use(helmet()); // Use helmet for security
 
 // This is required to initialized the passport package
 app.use(passport.initialize());
