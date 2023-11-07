@@ -19,4 +19,4 @@ A comprehensive full-stack web application developed as part of Colt Steele's Ud
 
 <hr>
 
-Tools: HTML5, CSS3, Modern JS(ES6), Flexbox, Asynchronous JavaScript (Promises, async/await), Bootstrap 5, DOM Manipulation, Node.js, Express.js, NPM, EJS Templating, REST API, NoSQL, MongoDB, Schema Design, Mongoose, Authentication (Cookies & Sessions), Authorization, Security Best Practices, Deployment and Cloud Databases, Image Upload and Storage, Maps and Geocoding.
+**Tools:** HTML5, CSS3, Modern JS(ES6), Flexbox, Asynchronous JavaScript (Promises, async/await), Bootstrap 5, DOM Manipulation, Node.js, Express.js, NPM, EJS Templating, REST API, NoSQL, MongoDB, Schema Design, Mongoose, Authentication (Cookies & Sessions), Authorization, Security Best Practices, Deployment and Cloud Databases, Image Upload and Storage, Maps and Geocoding.
