@@ -19,6 +19,7 @@ const flash = require('connect-flash');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
+const mongoSanitize = require('express-mongo-sanitize');
 
 // These are different from passportLocalMongoose package
 const passport = require('passport');
@@ -80,6 +81,8 @@ app.use(methodOverride('_method'));
 // Enable "public" folder to serve static files like css, pngs etc
 // app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
+// Removes "$gt:" like queries for security purposes
+app.use(mongoSanitize());
 
 // Config objects & setting up session
 const sessionConfig = {
