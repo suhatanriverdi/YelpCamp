@@ -26,10 +26,10 @@
                     <div class="row g-0">
                         <div class="col-md-4">
                             <% if (campground.images.length) { %>
-                                <img class="img-fluid-custom rounded-start" alt="A campground image"
+                                <img crossorigin="anonymous" class="img-fluid-custom rounded-start" alt="A campground image"
                                     src="<%= campground.images[0].url %>">
                                 <% } else { %>
-                                    <img class="img-fluid-custom rounded-start" alt="A campground image"
+                                    <img crossorigin="anonymous" class="img-fluid-custom rounded-start" alt="A campground image"
                                         src="https://res.cloudinary.com/dplejuooh/image/upload/v1698999010/YelpCamp/ap0pejkqwncth8ump0ad.jpg">
                                     <% } %>
                         </div>
