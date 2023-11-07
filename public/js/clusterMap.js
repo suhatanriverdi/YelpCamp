@@ -7,6 +7,9 @@ const map = new mapboxgl.Map({
     zoom: 3
 });
 
+// Add zoom-in buttons
+map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
 // Campgrounds DATA
 const camps = { features: JSON.parse(campgrounds) };
 

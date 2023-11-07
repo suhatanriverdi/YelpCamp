@@ -9,6 +9,9 @@ const map = new mapboxgl.Map({
     zoom: 12 // starting zoom
 });
 
+// Add zoom-in buttons
+map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
 new mapboxgl.Marker()
     .setLngLat(coordinates)
     .setPopup(
