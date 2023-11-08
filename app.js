@@ -9,9 +9,6 @@ if (process.env.NODE_ENV !== "production") {
     console.log("DEVELOPMENT MODE ENABLED", process.env.NODE_ENV);
     require('dotenv').config();
 }
-// else {
-//     console.log("PRODUCTION MODE ENABLED", process.env.NODE_ENV);
-// }
 
 // Now we have acces these variables inside .env file
 // console.log(process.env.SECRET);
@@ -40,8 +37,11 @@ const reviewsRoutes = require('./routes/review');
 // Register Routes
 const userRoutes = require('./routes/users');
 
+const MongoDbUrl = process.env.MONGODB_URL;
+
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp');
+    // await mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp');
+    await mongoose.connect(MongoDbUrl);
     console.log('Mongo connection opened ✓');
 }
 main().catch(err => console.log("Mongo Error happened:", err));
