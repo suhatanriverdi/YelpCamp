@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": ">=18"
+  },
   "name": "yelpcamp",
   "version": "1.0.0",
   "description": "",
