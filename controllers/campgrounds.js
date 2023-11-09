@@ -15,9 +15,6 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.createCampground = async (req, res, next) => {
-    // if (!req.body.campground) {
-    //     throw new ExpressError('Invalid Campground Data', 400);
-    // }
     const geoData = await geocoder.forwardGeocode({
         query: req.body.campground.location,
         limit: 1
@@ -42,14 +39,6 @@ module.exports.createCampground = async (req, res, next) => {
 module.exports.showCampground = async (req, res) => {
     const id = req.params.id;
     const campground = await Campground.findById(id)
-        /* 
-            Since we didn't store the parent Campground id in each review,
-            We can access the "author" property through the reviews under a campground.
-            To do that, we need to populated nested arrays.
-            Campground -> Reviews -> ["ObjectId - One Review"] -> ["ObjectId - Author"] -> Username
-            Campground:
-                reviews: [ ObjectId("..."), ObjectId("...") ]
-        */
         .populate({
             path: 'reviews',
             populate: {
@@ -57,14 +46,9 @@ module.exports.showCampground = async (req, res) => {
             }
         })
         .populate('author');
-    // console.log("campground populated: ", campground.reviews);
     if (!campground) {
         req.flash('error', 'Cannot find that campground!');
         return res.redirect('/campgrounds');
-        /* We should use return here because code continues running
-            Even if we don't return, we cannot do anything with "res." anymore
-            instead, we can do other stuff. We may have an error if we did not.
-        */
     }
     res.render('campgrounds/show', { campground });
 }
@@ -83,7 +67,6 @@ module.exports.renderEdit = async (req, res) => {
 // UPDATE/EDIT Campground
 module.exports.updateCampground = async (req, res) => {
     const campgroundId = req.params.id;
-    // console.log(req.body);
     const updatedCampgroundContent = req.body.campground;
     const updatedCampground = await Campground.findByIdAndUpdate(campgroundId, { ...updatedCampgroundContent });
     const imgs = req.files.map(f => ({

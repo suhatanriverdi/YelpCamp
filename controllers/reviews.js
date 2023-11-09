@@ -16,10 +16,6 @@ module.exports.createReview = async (req, res) => {
 
 module.exports.deleteReview = async (req, res) => {
     const { id: campgroundId, reviewId } = req.params;
-    /*
-        '$pull' operator removes from an existing array all instances of a value/values
-        that match specified condition. Here we remove the specific review.
-    */
     await Campground.findByIdAndUpdate(campgroundId, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
     req.flash('success', 'Successfully deleted review!');

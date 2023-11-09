@@ -7,8 +7,6 @@ const ImageSchema = new Schema({
     filename: String
 });
 
-// To modify the url to cloudinary
-// https://res.cloudinary.com/dplejuooh/image/upload/w_300/v1698907215/YelpCamp/gbhdpelwoheokwynecrz.jpg
 ImageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/w_200')
 });
@@ -57,7 +55,6 @@ const CampgroundSchema = new Schema({
 
 // Adding properties for MAPBOX popup
 CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
-    // Don't use "" here, use ''
     return `<strong><a href='/campgrounds/${this._id}'>${this.title}</a></strong><p>${this.description.substring(0, 30)}...</p>`;
 });
 

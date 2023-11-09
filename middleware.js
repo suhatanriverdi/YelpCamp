@@ -6,10 +6,7 @@ const Review = require('./models/review');
 module.exports.isLoggedIn = (req, res, next) => {
     // serialize-deserialize thing will work here...
     // Comes from session thanks to password package
-    // console.log("req.user: ", req.user);
     if (!req.isAuthenticated()) {
-        // To print routes
-        // console.log("Paths: ", req.path, req.originalUrl);
         // We store req.originalUrl to redirect user back to where they were left off
         req.session.returnTo = req.originalUrl;
         req.flash('error', 'You must be signed in!');
@@ -52,7 +49,6 @@ module.exports.validateCampground = (req, res, next) => {
     if (error) {
         const message = error.details.map(el => el.message).join(',');
         throw new ExpressError(message, 400);
-        // the statements after throw won't be executed!
     }
     next();
 }
@@ -62,7 +58,6 @@ module.exports.validateReview = (req, res, next) => {
     if (error) {
         const message = error.details.map(el => el.message).join(',');
         throw new ExpressError(message, 400);
-        // the statements after throw won't be executed!
     }
     next();
 }

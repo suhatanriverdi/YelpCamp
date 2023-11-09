@@ -16,44 +16,12 @@
 <body class="d-flex flex-column vh-100">
     <%- include('../partials/navbar') %>
         <main class="container mt-5 mb-5">
-            <!-- we have access to "locals.*anythinghere*" directly
-            So, ne need to write locals.
-        -->
             <%- include('../partials/flash') %>
-            <%- body %>
+                <%- body %>
         </main>
         <%- include('../partials/footer') %>
 
-            <!-- 
-        Putting "/" in front of the file is to ensure that
-        the asset comes from the "root" of the web server.
-        So the slash makes the URL "absolute".
-
-        For example:
-
-        "/foo/bar/baz.css"
-        This translates to:
-
-        "http://www.example.com/foo/bar/baz.css"
-
-        But without the slash, things become a bit different:
-
-        "foo/bar/baz.css"
-        This tells the browser to look in the current folder
-        (not the root folder) for the directory 
-        foo and then the subsequent directories and the file.
-
-        Also, take for instance this HTML:
-
-        "<script type="text/javascript" src="foo.js"></script>"
-        If you move the HTML file into another folder, then the script will not load, as foo.js isn't being moved with the HTML file.
-
-        But if you use an absolute URL:
-
-        "<script type="text/javascript" src="/foo.js"></script>"
-        Then the JS file is loaded EXACTLY from http://www.example.com/foo.js no matter where the HTML file is.
-     -->
-    <script src="/js/validateForm.js"></script>
+            <script src="/js/validateForm.js"></script>
 </body>
 
 </html>

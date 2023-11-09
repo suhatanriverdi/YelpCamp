@@ -1,7 +1,4 @@
 const express = require('express');
-/* We don't need { mergeParams: true } here,
-because all the "/:id"s already here in this file or route
-They are not passing/coming form the parent! */
 const router = express.Router();
 
 // MVC Controllers
@@ -23,10 +20,6 @@ router.route('/')
         validateCampground,
         catchAsync(campgrounds.createCampground)
     )
-// .post(upload.array('image'), (req, res) => {
-//     // console.log(req.body, req.files);
-//     res.send("IT WORKED")
-// })
 
 router.get('/new', isLoggedIn, campgrounds.renderNewForm);
 

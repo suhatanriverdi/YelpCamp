@@ -1,18 +1,4 @@
-/*
-    If we are in DEVELOPMENT mode, require the package
-    dotenv and this will take the variables we defined
-    in ".env" file and add them into "process.env" in the node app.
-*/
 // process.env.NODE_ENV = 'production';
-// process.env.NODE_ENV = 'development';
-if (process.env.NODE_ENV !== "production") {
-    console.log("DEVELOPMENT MODE ENABLED", process.env.NODE_ENV);
-    require('dotenv').config();
-}
-
-// Now we have acces these variables inside .env file
-// console.log(process.env.SECRET);
-// console.log(process.env.API_KEY);
 
 const express = require('express');
 const path = require('path');
@@ -38,12 +24,10 @@ const reviewsRoutes = require('./routes/review');
 // Register Routes
 const userRoutes = require('./routes/users');
 
-// const MongoDbUrl = process.env.MONGODB_URL;
-const MongoDbUrl = 'mongodb://127.0.0.1:27017/yelp-camp';
+const MongoDbUrl = process.env.MONGODB_URL;
 
 async function main() {
     await mongoose.connect(MongoDbUrl);
-    // await mongoose.connect(MongoDbUrl);
     console.log('Mongo connection opened ✓');
 }
 main().catch(err => console.log("Mongo Error happened:", err));
@@ -55,40 +39,12 @@ app.listen(port, () => {
     console.log('Express App is listening on port: ', port, '...');
 });
 
-//------------------------------
-// How these redirects work?
-// redirect('seno');
-// redirect('/seno');
-/*
-Redirects
-
-can be relative to the current URL. 
-For example, from http://example.com/blog/admin/ (note the trailing slash), 
-the "res.redirect('post/new')" redirects
-to the URL of http://example.com/blog/admin/post/new.
-
-If you redirect from http://example.com/blog/admin to post/new (no trailing slash),
- it redirects to http://example.com/blog/post/new.
-*/
-// app.get('/melo', (req, res) => {
-//     res.location()
-//     res.redirect('seno');
-// });
-
-// app.get('/seno', (req, res) => {
-//     res.send('İKİNCİ SAYFA');
-//     // res.redirect('/melo');
-// });
-//--------------------------------
-
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-// Enable "public" folder to serve static files like css, pngs etc
-// app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
 // Removes "$gt:" like queries for security purposes
 app.use(mongoSanitize());
@@ -127,7 +83,6 @@ const sessionConfig = {
 // This should be before "passport.session()"
 app.use(session(sessionConfig));
 app.use(flash()); // Flash messages
-// app.use(helmet()); // Use helmet for security
 
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com",
@@ -210,7 +165,6 @@ app.use('/campgrounds/:id/reviews', reviewsRoutes);
 app.get('/', (req, res) => {
     // req.params -> to access pattern variable inside
     // the Route Path /campgrounds/":id" id here in express
-
     // req.query -> to access the Query string parameters we pass to URL
     // req.body -> to access POST info
     res.render('home');
@@ -227,11 +181,3 @@ app.use((err, req, res, next) => {
     }
     res.status(statusCode).render('error', { err });
 })
-
-/*
-redirect redirects the user's browser to another address. 
-That means, for example, that if the user goes to 'myadress.com/redirect-me', 
-and you redirect him to '/i-was-redirected', he will go to 'myadress.com/i-was-redirected'.
-
-render is used to show a template (for example .ejs) at the current address the browser is at.
-*/

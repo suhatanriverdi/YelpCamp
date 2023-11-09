@@ -18,8 +18,6 @@ module.exports.registerUser = async (req, res) => {
         });
     } catch (err) {
         req.flash('error', err.message);
-
-        // BUNU DENE EKSTRA APP YAZ DENE
         res.redirect('/register');
     }
 }
@@ -35,7 +33,6 @@ module.exports.renderLogin = (req, res) => {
 module.exports.login = (req, res) => {
     const { username } = req.body;
     req.flash('success', `Welcome back! ${username}`);
-    // update this line to use res.locals.returnTo now
     const redirectUrl = res.locals.returnTo || '/campgrounds';
     // Delete operator removes a property from an object
     delete req.session.returnTo;

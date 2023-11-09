@@ -1,21 +1,7 @@
 const mongoose = require('mongoose');
 const Campground = require('../models/campground');
 const Review = require('../models/review');
-
-/*
-"import" needs curly braces for named exports 
-and doesn’t need them for the default one.
-Not giving a name is fine, because there is only one export default per file,so import without curly braces knows what to import.
-*/
-// Sample default export, ES6 way
-// import cities from './cities';
-// Old way to import things
 const cities = require('./cities');
-
-// Sample named export, ES6 Way
-// import { places, descriptors } from './seedHelpers';
-// const { places, descriptors } = require('./seedHelpers');
-// Old way
 const { places, descriptors } = require('./seedHelpers');
 
 async function main() {
