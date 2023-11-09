@@ -4,7 +4,7 @@ const map = new mapboxgl.Map({
     // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
     style: 'mapbox://styles/mapbox/streets-v12',
     center: [35.2433, 38.9637],
-    zoom: 3
+    zoom: 5
 });
 
 // Add zoom-in buttons
