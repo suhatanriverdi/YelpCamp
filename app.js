@@ -58,7 +58,7 @@ const store = MongoStore.create({
     mongoUrl: MongoDbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: process.env.SECRET
+        secret
     }
 });
 
@@ -70,7 +70,7 @@ store.on('error', function (e) {
 const sessionConfig = {
     store,
     name: 'session',
-    secret: process.env.SECRET,
+    secret,
     resave: false,
     saveUninitialized: true,
     // We can have fancy options for our cookie like expiration date
