@@ -18,6 +18,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError');
@@ -37,10 +38,11 @@ const reviewsRoutes = require('./routes/review');
 // Register Routes
 const userRoutes = require('./routes/users');
 
-const MongoDbUrl = process.env.MONGODB_URL;
+// const MongoDbUrl = process.env.MONGODB_URL;
+const MongoDbUrl = 'mongodb://127.0.0.1:27017/yelp-camp';
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp');
+    await mongoose.connect(MongoDbUrl);
     // await mongoose.connect(MongoDbUrl);
     console.log('Mongo connection opened ✓');
 }
@@ -91,8 +93,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Removes "$gt:" like queries for security purposes
 app.use(mongoSanitize());
 
+const store = MongoStore.create({
+    mongoUrl: MongoDbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'thisshouldbeabettersecret!'
+    }
+});
+
+store.on('error', function (e) {
+    console.log('Store Error! ', e);
+})
+
 // Config objects & setting up session
 const sessionConfig = {
+    store,
     name: 'session',
     secret: 'thisshouldbeabettersecret!',
     resave: false,
