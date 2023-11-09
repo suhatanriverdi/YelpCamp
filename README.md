@@ -1,6 +1,13 @@
-# YelpCamp
+# ⛺ YelpCamp 🏕️
 
-A comprehensive full-stack web application developed as part of Colt Steele's Udemy web development bootcamp, with a focus on secure user authentication, database management, and responsive UI design for campground reviews.
+A comprehensive full-stack web application developed as part of Colt Steele's Udemy web development boot camp, with a focus on secure user authentication, database management, and responsive UI design for campground reviews.
+
+## Features
+- Users can create, edit, and remove campgrounds
+- Users can locate their campgrounds, and then see the location pins on the world map view
+- Users can review campgrounds, and edit or remove their specific reviews
+- Flash messages regarding actions
+- Small multiple images upload preview
 
 **Screenshots:**
 ![image](https://github.com/shtanriverdi/YelpCamp/assets/36234545/d13da440-d550-4fc9-82a9-43a0065b5cc1)
@@ -19,4 +26,22 @@ A comprehensive full-stack web application developed as part of Colt Steele's Ud
 
 <hr>
 
-**Tools:** HTML5, CSS3, Modern JS(ES6), Flexbox, Asynchronous JavaScript (Promises, async/await), Bootstrap 5, DOM Manipulation, Node.js, Express.js, NPM, EJS Templating, REST API, NoSQL, MongoDB, Schema Design, Mongoose, Authentication (Cookies & Sessions), Authorization, Security Best Practices, Deployment and Cloud Databases, Image Upload and Storage, Maps and Geocoding.
+**Tools** 
+- HTML5, CSS3, EJS Templating
+- Modern JS(ES6)
+- Flexbox, Bootstrap 5
+- Asynchronous JavaScript (Promises, async/await, DOM)
+- Node.js
+- Express.js
+- NPM
+- REST API
+- NoSQL, MongoDB, Schema Design, Mongoose
+- Authentication (Cookies & Sessions), Authorization, Password.js
+- Security Best Practices, Helmet
+- Deployment and Cloud Databases
+- Image Upload and Storage
+- Maps and Geocoding
+
+
+*YelpCamp, Created by Süha Tanrıverdi.*
+*All Rights Reserved. Genesis Corp™ 2023.*
