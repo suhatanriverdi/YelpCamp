@@ -151,8 +151,6 @@ app.use((req, res, next) => {
 
 app.get('/fakeUser', async (req, res) => {
     const user = new User({ email: 'melo@gmail.com', username: 'melo' });
-    // Takes instance of a user model and a passport
-    // And this will hash and store it for us
     const newUser = await User.register(user, 'eagle');
     res.send(newUser);
 })
@@ -163,10 +161,6 @@ app.use('/campgrounds', campgroundsRoutes);
 app.use('/campgrounds/:id/reviews', reviewsRoutes);
 
 app.get('/', (req, res) => {
-    // req.params -> to access pattern variable inside
-    // the Route Path /campgrounds/":id" id here in express
-    // req.query -> to access the Query string parameters we pass to URL
-    // req.body -> to access POST info
     res.render('home');
 });
 
