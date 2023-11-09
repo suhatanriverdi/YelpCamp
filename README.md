@@ -1,12 +1,13 @@
 # ⛺ YelpCamp 🏕️
 
-A comprehensive full-stack web application developed as part of Colt Steele's Udemy web development bootcamp, with a focus on secure user authentication, database management, and responsive UI design for campground reviews.
+A comprehensive full-stack web application developed as part of Colt Steele's Udemy web development boot camp, with a focus on secure user authentication, database management, and responsive UI design for campground reviews.
 
 ## Features
 - Users can create, edit, and remove campgrounds
-- Users can locate their campgrounds, then see the location pins on the world map view
+- Users can locate their campgrounds, and then see the location pins on the world map view
 - Users can review campgrounds, and edit or remove their specific reviews
 - Flash messages regarding actions
+- Small multiple images upload preview
 
 **Screenshots:**
 ![image](https://github.com/shtanriverdi/YelpCamp/assets/36234545/d13da440-d550-4fc9-82a9-43a0065b5cc1)
