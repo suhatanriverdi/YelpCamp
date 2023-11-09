@@ -1,4 +1,4 @@
-# YelpCamp
+# ⛺ YelpCamp 🏕️
 
 A comprehensive full-stack web application developed as part of Colt Steele's Udemy web development bootcamp, with a focus on secure user authentication, database management, and responsive UI design for campground reviews.
 
