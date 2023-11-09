@@ -1,4 +1,7 @@
-// process.env.NODE_ENV = 'production';
+if (process.env.NODE_ENV !== "production") {
+    console.log("DEVELOPMENT MODE ENABLED", process.env.NODE_ENV);
+    require('dotenv').config();
+}
 
 const express = require('express');
 const path = require('path');
