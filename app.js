@@ -52,6 +52,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Removes "$gt:" like queries for security purposes
 app.use(mongoSanitize());
 
+const secret = process.env.SECRET || 'developmentsecret';
+
 const store = MongoStore.create({
     mongoUrl: MongoDbUrl,
     touchAfter: 24 * 60 * 60,
