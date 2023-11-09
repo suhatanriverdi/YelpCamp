@@ -40,8 +40,8 @@ const userRoutes = require('./routes/users');
 const MongoDbUrl = process.env.MONGODB_URL;
 
 async function main() {
-    // await mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp');
-    await mongoose.connect(MongoDbUrl);
+    await mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp');
+    // await mongoose.connect(MongoDbUrl);
     console.log('Mongo connection opened ✓');
 }
 main().catch(err => console.log("Mongo Error happened:", err));
