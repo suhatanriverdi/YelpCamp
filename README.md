@@ -2,6 +2,8 @@
 
 A comprehensive full-stack web application developed as part of Colt Steele's Udemy web development boot camp, with a focus on secure user authentication, database management, and responsive UI design for campground reviews.
 
+![Screen Recording 2024-10-04 at 21 42 50](https://github.com/user-attachments/assets/c384063e-d664-4351-9b25-d8979fd7b615)
+
 ## Features
 - Users can create, edit, and remove campgrounds
 - Users can locate their campgrounds, and then see the location pins on the world map view
